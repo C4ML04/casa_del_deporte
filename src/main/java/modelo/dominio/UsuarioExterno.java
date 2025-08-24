@@ -20,6 +20,7 @@ public class UsuarioExterno extends Persona{
 
     //getters y setters
 
+
     public boolean isHaciendoMusculacion() {
         return haciendoMusculacion;
     }
@@ -35,6 +36,4 @@ public class UsuarioExterno extends Persona{
     public void setEsDeportistaActivo(boolean esDeportistaActivo) {
         EsDeportistaActivo = esDeportistaActivo;
     }
-
-
 }
