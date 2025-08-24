@@ -26,3 +26,5 @@ public class Admin extends Persona{
         this.actividadDirecta = actividadDirecta;
     }
 }
+
+
