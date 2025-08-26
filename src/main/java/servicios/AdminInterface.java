@@ -5,8 +5,8 @@ import modelo.dominio.Persona;
 
 public interface AdminInterface {
 
-    public void registrarPersona(Admin admin);
+    public void registrarAdmin(Admin admin);
 
-    public void listarPersona();
+    public void listarAdmin();
 
 }
