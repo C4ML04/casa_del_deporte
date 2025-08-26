@@ -44,6 +44,12 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
     }
 
     @Override
+    public void actualizarUsuarioExterno(UsuarioExterno usuarioExterno) {
+
+    }
+
+
+    @Override
     public void listarUsuariosExternos() {
 
     }
