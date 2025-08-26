@@ -25,6 +25,8 @@ public class Admin extends Persona{
     public void setActividadDirecta(String actividadDirecta) {
         this.actividadDirecta = actividadDirecta;
     }
+
+
 }
 
 
