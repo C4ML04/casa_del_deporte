@@ -118,9 +118,13 @@ public class App {
                     break;
                 case 2:
                     System.out.println("consulta de admin por id");
+                    System.out.println("ingrese el id del Admin");
+                    int id= sc.nextInt();
+                    adminService.buscarAdminPorId(id);
                     break;
                 case 3:
                     System.out.println("consulta de administradores completa");
+                    adminService.listarAdmin();
                     break;
                 case 4:
                     System.out.println("actualizacion de datos del administrador");

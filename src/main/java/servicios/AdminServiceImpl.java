@@ -47,6 +47,13 @@ public class AdminServiceImpl  implements  AdminInterface{
 
     @Override
     public void listarAdmin() {
+      adminRepositorio.mostrarAdmins();
+    }
+
+    @Override
+    public void buscarAdminPorId(int id) {
+ 
+        adminRepositorio.buscarAdminPorId(id);
 
     }
 }
