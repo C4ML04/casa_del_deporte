@@ -3,6 +3,8 @@ package servicios;
 import modelo.dominio.UsuarioExterno;
 import repositorio.UsuarioExternoRepositorio;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
@@ -25,19 +27,40 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
         String apellido = sc.nextLine();
         System.out.println("Ingrese telefono del usuario:");
         String telefono = sc.nextLine();
-        System.out.println("¿Es deportista activo? (true/false):");
-        boolean esDeportistaActivo = sc.nextBoolean();
-        System.out.println("¿Está haciendo musculación? (true/false):");
-        boolean haciendoMusculacion = sc.nextBoolean();
+        Date fechaDeNacimiento = null;
+        while (fechaDeNacimiento==null) {
+            System.out.println("Ingresa la fecha de nacimiento (YYYY-MM-DD):");
+            String fechaTexto = sc.nextLine();
 
-
+            try {
+                fechaDeNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaTexto);
+            } catch (Exception e) {
+                System.out.println("❌ Formato de fecha inválido. Use YYYY-MM-DD");
+            }
+        }
+        System.out.println("¿Es deportista activo? (Si/No):");
+        String respuesta = sc.nextLine();
+        boolean esDeportistaActivo;
+        if (respuesta.equalsIgnoreCase("si")) {
+            esDeportistaActivo = true;
+        } else {
+            esDeportistaActivo = false;
+        }
+        System.out.println("¿Está haciendo musculación? (Si/No):");
+        respuesta = sc.nextLine();
+        boolean haciendoMusculacion;
+        if (respuesta.equalsIgnoreCase("si")) {
+            haciendoMusculacion = true;
+        } else {
+            haciendoMusculacion = false;
+        }
         usuarioExterno.setId(id);
         usuarioExterno.setNombre(nombre);
         usuarioExterno.setApellido(apellido);
         usuarioExterno.setTelefono(telefono);
+        usuarioExterno.setFechaDeNacimiento(fechaDeNacimiento);
         usuarioExterno.setEsDeportistaActivo(esDeportistaActivo);
         usuarioExterno.setHaciendoMusculacion(haciendoMusculacion);
-
 
         usuarioExternoRepositorio.crearUsuarioExternoRepositorio(usuarioExterno);
         usuarioExternoRepositorio.crearUsuarioExternoDB(usuarioExterno);

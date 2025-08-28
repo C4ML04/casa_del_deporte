@@ -9,4 +9,8 @@ public interface AdminInterface {
 
     public void listarAdmin();
 
+    public void buscarAdminPorId(int id);
+
+    public void deleteAdminId(int id);
+
 }

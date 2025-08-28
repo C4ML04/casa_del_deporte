@@ -1,17 +1,22 @@
 package modelo.dominio;
 
+import java.util.Date;
+
 public class UsuarioExterno extends Persona{
 
     //atributos
+    Date fechaDeNacimiento;
     private boolean haciendoMusculacion;
     private boolean EsDeportistaActivo;
 
     //constructor
 
-    public UsuarioExterno(int id, String nombre, String apellido, String telefono, String tipoDeDoc, String numberCc, boolean haciendoMusculacion, boolean esDeportistaActivo) {
+    public UsuarioExterno(int id, String nombre, String apellido, String telefono, String tipoDeDoc, String numberCc, Date fechaDeNacimiento, boolean haciendoMusculacion, boolean esDeportistaActivo) {
         super(id, nombre, apellido, telefono, tipoDeDoc, numberCc);
+        this.fechaDeNacimiento = fechaDeNacimiento;
         this.haciendoMusculacion = haciendoMusculacion;
-        EsDeportistaActivo = esDeportistaActivo;
+        this.EsDeportistaActivo = esDeportistaActivo;
+
     }
 
     public UsuarioExterno() {
@@ -20,6 +25,13 @@ public class UsuarioExterno extends Persona{
 
     //getters y setters
 
+    public Date getFechaDeNacimiento() {
+        return fechaDeNacimiento;
+    }
+
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
+    }
 
     public boolean isHaciendoMusculacion() {
         return haciendoMusculacion;

@@ -118,15 +118,22 @@ public class App {
                     break;
                 case 2:
                     System.out.println("consulta de admin por id");
+                    System.out.println("ingrese el id del Admin");
+                    int id= sc.nextInt();
+                    adminService.buscarAdminPorId(id);
                     break;
                 case 3:
                     System.out.println("consulta de administradores completa");
+                    adminService.listarAdmin();
                     break;
                 case 4:
                     System.out.println("actualizacion de datos del administrador");
                     break;
                 case 5:
                     System.out.println("eliminar adminitrador");
+                    System.out.println("Ingrese el Id a Eliminar");
+                    int idDelete = sc.nextInt();
+                    adminService.deleteAdminId(idDelete);
                     break;
                 case 6:
                     System.out.println("saliendo del menu de gestion de administradores");

@@ -24,6 +24,7 @@ public class UsuarioExternoRepositorio {
         String nombre = usuarioExterno.getNombre();
         String apellido = usuarioExterno.getApellido();
         String telefono = usuarioExterno.getTelefono();
+        String fechaNacimiento = String.valueOf(usuarioExterno.getFechaDeNacimiento());
         String esDeportistaActivo = String.valueOf(usuarioExterno.isEsDeportistaActivo());
         String haciendoMusculacion = String.valueOf(usuarioExterno.isHaciendoMusculacion());
 
@@ -31,6 +32,7 @@ public class UsuarioExternoRepositorio {
         listaUsuario.add(nombre);
         listaUsuario.add(apellido);
         listaUsuario.add(telefono);
+        listaUsuario.add(fechaNacimiento);
         listaUsuario.add(esDeportistaActivo);
         listaUsuario.add(haciendoMusculacion);
         // En la listaUsuarios se guarda una lista de strings que representa un usuario externo
@@ -46,14 +48,15 @@ public class UsuarioExternoRepositorio {
         PreparedStatement ps = null;
         try ( Connection connection = conexion.connect()) {
 
-            String query = "INSERT INTO usuario_externo(id_usuario, nombre_usuario, apellido, telefono, es_deportista_activo, haciendo_musculacion)VALUES(?,?,?,?,?,?)";
+            String query = "INSERT INTO usuario_externo(id_usuario, nombre_usuario, apellido, telefono, fecha_de_nacimiento ,es_deportista_activo, haciendo_musculacion)VALUES(?,?,?,?,?,?,?)";
             ps = connection.prepareStatement(query);
             ps.setInt(1, usuarioExterno.getId());
             ps.setString(2, usuarioExterno.getNombre());
             ps.setString(3, usuarioExterno.getApellido());
             ps.setString(4, usuarioExterno.getTelefono());
-            ps.setBoolean(5, usuarioExterno.isEsDeportistaActivo());
-            ps.setBoolean(6, usuarioExterno.isHaciendoMusculacion());
+            ps.setDate(5, new java.sql.Date(usuarioExterno.getFechaDeNacimiento().getTime()));
+            ps.setBoolean(6, usuarioExterno.isEsDeportistaActivo());
+            ps.setBoolean(7, usuarioExterno.isHaciendoMusculacion());
 
             ps.executeUpdate();
             System.out.println("Usuario Externo registrado en la base de datos" + usuarioExterno.getNombre() + " " + usuarioExterno.getApellido());
