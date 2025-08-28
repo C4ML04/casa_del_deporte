@@ -11,4 +11,6 @@ public interface AdminInterface {
 
     public void buscarAdminPorId(int id);
 
+    public void deleteAdminId(int id);
+
 }
