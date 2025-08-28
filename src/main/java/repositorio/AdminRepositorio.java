@@ -3,10 +3,8 @@ package repositorio;
 import com.mysql.cj.util.DnsSrv;
 import modelo.dominio.Admin;
 
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Scanner;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 public class AdminRepositorio {
 
@@ -110,6 +108,22 @@ public class AdminRepositorio {
             System.out.println("Error al conectar "+e.getMessage());
         }
 
+
+    }
+
+    public void deleteAdminId(int id){
+
+        PreparedStatement ps = null;
+
+        try (Connection conection = conexion.connect()){
+            String query = "DELETE FROM admin WHERE id_admin = ?";
+            ps = conection.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Admin Eliminado con el id: " + id);
+        } catch (SQLException e) {
+            System.out.println("Error de conexión: " + e.getMessage());
+        }
 
     }
 

@@ -56,4 +56,10 @@ public class AdminServiceImpl  implements  AdminInterface{
         adminRepositorio.buscarAdminPorId(id);
 
     }
+
+    @Override
+    public void deleteAdminId(int id) {
+        adminRepositorio.deleteAdminId(id);
+    }
+
 }

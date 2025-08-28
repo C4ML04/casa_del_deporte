@@ -131,6 +131,9 @@ public class App {
                     break;
                 case 5:
                     System.out.println("eliminar adminitrador");
+                    System.out.println("Ingrese el Id a Eliminar");
+                    int idDelete = sc.nextInt();
+                    adminService.deleteAdminId(idDelete);
                     break;
                 case 6:
                     System.out.println("saliendo del menu de gestion de administradores");
