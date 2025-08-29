@@ -127,4 +127,65 @@ public class AdminRepositorio {
 
     }
 
+    public void updateAdmin(Admin admin){
+
+        System.out.println("apellido: " + admin.getApellido());
+        System.out.println("Id: " + admin.getId());
+        System.out.println("Telefono: " + admin.getTelefono());
+        System.out.println("Actividad Directa: " + admin.getActividadDirecta());
+
+
+        PreparedStatement ps = null;
+
+        try(Connection connection = conexion.connect()) {
+
+            if(admin.getNombre() != null && !admin.getNombre().isEmpty()){
+                String query = createQueryUpdateAdmin(" nombre_admin");
+                ps = connection.prepareStatement(query);
+                ps.setString(1,admin.getNombre());
+                ps.setInt(2,admin.getId());
+                ps.executeUpdate();
+                System.out.println("Administrador actualizado en la base de datos: " + admin.getNombre() + " " + admin.getApellido());
+
+
+            }else if(admin.getApellido() != null && !admin.getApellido().isEmpty()){
+                String query = createQueryUpdateAdmin(" apellido_admin");
+                ps = connection.prepareStatement(query);
+                ps.setString(1,admin.getApellido());
+                ps.setInt(2,admin.getId());
+                ps.executeUpdate();
+                System.out.println("Administrador actualizado en la base de datos: " + admin.getNombre() + " " + admin.getApellido());
+
+
+            }else if(admin.getTelefono() != null && !admin.getTelefono().isEmpty()) {
+                String query = createQueryUpdateAdmin(" telefono_admin");
+                ps = connection.prepareStatement(query);
+                ps.setString(1, admin.getTelefono());
+                ps.setInt(2, admin.getId());
+                ps.executeUpdate();
+                System.out.println("Administrador actualizado en la base de datos: " + admin.getNombre() + " " + admin.getApellido());
+
+
+            }else if(admin.getActividadDirecta() != null && !admin.getActividadDirecta().isEmpty()) {
+                String query = createQueryUpdateAdmin(" actividad_directa");
+                ps = connection.prepareStatement(query);
+                ps.setString(1, admin.getActividadDirecta());
+                ps.setInt(2, admin.getId());
+                ps.executeUpdate();
+                System.out.println("Administrador actualizado en la base de datos: " + admin.getNombre() + " " + admin.getApellido());
+
+
+            }else{
+                System.out.println("No se proporcionó un nombre o apellido válido para actualizar.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al conectar: " + e.getMessage());
+        }
+    }
+
+    public String createQueryUpdateAdmin(String paramSQL){
+        return "UPDATE admin SET"+ paramSQL + "= ? WHERE id_admin = ?";
+    }
+
 }
