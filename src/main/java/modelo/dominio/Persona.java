@@ -18,7 +18,7 @@ public class Persona {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.telefono=telefono;
+        this.telefono = telefono;
         this.tipoDeDoc = tipoDeDoc;
         this.numberCc=numberCc;
     }

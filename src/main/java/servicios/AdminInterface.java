@@ -13,4 +13,6 @@ public interface AdminInterface {
 
     public void deleteAdminId(int id);
 
+    public void updateAdmin(Admin admin);
+
 }
