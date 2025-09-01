@@ -47,6 +47,82 @@ public class AdminServiceImpl  implements  AdminInterface{
 
     @Override
     public void listarAdmin() {
+      adminRepositorio.mostrarAdmins();
+    }
+
+    @Override
+    public void buscarAdminPorId(int id) {
+ 
+        adminRepositorio.buscarAdminPorId(id);
 
     }
+
+    @Override
+    public void deleteAdminId(int id) {
+        adminRepositorio.deleteAdminId(id);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+
+        System.out.println("Actualizar Administrador");
+
+        System.out.println("""
+                Elija el Campo a actualizar
+                1) Nombre
+                2) Apellido
+                3) Telefono
+                4) Actividad Directa
+                """);
+
+        int option = sc.nextInt();
+        sc.nextLine();
+
+        switch (option){
+
+            case 1:
+                System.out.println("Ingrese el nuevo nombre ");
+                String nombre = sc.nextLine();
+                sc.nextLine(); // Consumir el salto de línea pendiente
+                System.out.println("Ingrese el Id del Administrador a actualizar ");
+                int id = sc.nextInt();
+                admin.setId(id);
+                admin.setNombre(nombre);
+                adminRepositorio.updateAdmin(admin);
+                break;
+            case 2:
+                System.out.println("Ingrese el nuevo apellido ");
+                String apellido = sc.nextLine();
+                System.out.println("Ingrese el Id del Admin a actualizar ");
+                id = sc.nextInt();
+                admin.setId(id);
+                admin.setApellido(apellido);
+                adminRepositorio.updateAdmin(admin);
+                break;
+            case 3:
+                System.out.println("Ingrese el nuevo Telefono ");
+                String telefono = sc.nextLine();
+                sc.nextLine(); // Consumir el salto de línea pendiente
+                System.out.println("Ingrese el Id del Administrador a actualizar ");
+                id = sc.nextInt();
+                admin.setId(id);
+                admin.setTelefono(telefono);
+                adminRepositorio.updateAdmin(admin);
+                break;
+            case 4:
+                System.out.println("Ingrese La Nueva actividad directa ");
+                String actividadDirecta = sc.nextLine();
+                sc.nextLine(); // Consumir el salto de línea pendiente
+                System.out.println("Ingrese el Id del Administrador a actualizar ");
+                id = sc.nextInt();
+                admin.setId(id);
+                admin.setActividadDirecta(actividadDirecta);
+                adminRepositorio.updateAdmin(admin);
+                break;
+            default:
+                System.out.println("Opción no válida");
+                break;
+        }
+    }
+
 }
