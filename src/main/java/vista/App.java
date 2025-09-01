@@ -69,6 +69,7 @@ public class App {
         System.out.println("Gestionar Usuario Externo \n" +
                 "1. Registrar Usuario Externo \n" +
                 "2. Listar Usuarios Externos \n" +
+                "3. Actualizar Usuario Externo \n" +
                 "3. Volver al menú principal");
         int option = sc.nextInt();
         sc.nextLine();
@@ -83,6 +84,10 @@ public class App {
                 usuarioExternoService.listarUsuariosExternos();
                 break;
             case 3:
+                System.out.println("Actualizar Usuario Externo");
+                usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
+                break;
+            case 4:
                 System.out.println("Volver al menú principal");
                 menuApp();
                 break;
