@@ -133,6 +133,7 @@ public class App {
                     break;
                 case 4:
                     System.out.println("actualizacion de datos del administrador");
+                    adminService.updateAdmin(admin);
                     break;
                 case 5:
                     System.out.println("eliminar adminitrador");
