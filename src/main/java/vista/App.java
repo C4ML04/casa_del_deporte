@@ -36,7 +36,7 @@ public class App {
                     System.out.println("""
                             Seleccione una opción:
                             1. Gestionar Usuario Externo
-                            2. manejo de Administradores
+                            2. Manejo de Administradores
                             3. Salir
                             """);
                     option = sc.nextInt();
@@ -69,8 +69,9 @@ public class App {
         System.out.println("Gestionar Usuario Externo \n" +
                 "1. Registrar Usuario Externo \n" +
                 "2. Listar Usuarios Externos \n" +
-                "3. Actualizar Usuario Externo \n" +
-                "3. Volver al menú principal");
+                "3. Buscar Usuario por ID \n" +
+                "4. Actualizar Usuario Externo \n" +
+                "5. Volver al menú principal");
         int option = sc.nextInt();
         sc.nextLine();
 
@@ -83,11 +84,21 @@ public class App {
                 System.out.println("Listar Usuarios Externos");
                 usuarioExternoService.listarUsuariosExternos();
                 break;
-            case 3:
+
+                case 3:
+                System.out.println("Buscar usuario por ID");
+                System.out.print("Ingrese el ID del usuario: ");
+                int idUsuario = sc.nextInt();   // le pides al usuario el ID
+                sc.nextLine(); // para limpiar buffer
+
+                usuarioExternoService.obtenerUsuarioPorId(idUsuario);
+                break;
+
+            case 4:
                 System.out.println("Actualizar Usuario Externo");
                 usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
                 break;
-            case 4:
+            case 5:
                 System.out.println("Volver al menú principal");
                 menuApp();
                 break;
