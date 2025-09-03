@@ -1,166 +1,158 @@
 package vista;
 
 import modelo.dominio.Admin;
+import modelo.dominio.Reserva;
 import modelo.dominio.UsuarioExterno;
 import repositorio.AdminRepositorio;
+import repositorio.ReservaRepositorio;
 import repositorio.UsuarioExternoRepositorio;
 import servicios.AdminServiceImpl;
+import servicios.ReservaServiceImpl;
 import servicios.UsuarioExternoServiceImpl;
 
 import java.util.Scanner;
 
 public class App {
 
-    Scanner sc = new Scanner(System.in);
-    UsuarioExterno usuarioExterno = new UsuarioExterno();
-    UsuarioExternoRepositorio usuarioExternoRepositorio = new UsuarioExternoRepositorio();
-    UsuarioExternoServiceImpl usuarioExternoService = new UsuarioExternoServiceImpl(usuarioExternoRepositorio);
+    private Scanner sc = new Scanner(System.in);
 
+    // Servicios
+    private UsuarioExterno usuarioExterno = new UsuarioExterno();
+    private UsuarioExternoRepositorio usuarioExternoRepositorio = new UsuarioExternoRepositorio();
+    private UsuarioExternoServiceImpl usuarioExternoService = new UsuarioExternoServiceImpl(usuarioExternoRepositorio);
 
-    Admin admin = new Admin();
-    AdminRepositorio adminRepositorio = new AdminRepositorio();
-    AdminServiceImpl adminService = new AdminServiceImpl(adminRepositorio);
+    private Admin admin = new Admin();
+    private AdminRepositorio adminRepositorio = new AdminRepositorio();
+    private AdminServiceImpl adminService = new AdminServiceImpl(adminRepositorio);
 
+    private Reserva reserva = new Reserva();
+    private ReservaRepositorio reservaRepositorio = new ReservaRepositorio();
+    private ReservaServiceImpl reservaService = new ReservaServiceImpl(reservaRepositorio);
 
+    // ====================== MENÚ PRINCIPAL ======================
     public void menuApp() {
-        int option = 0;
-
-            System.out.println("Bienvenido al sistema de reservas" + "presione 1 para iniciar el sistema");
-            int star = sc.nextInt();
-
-            while (star != 0) {
-
-                do {
-
-
-                    System.out.println("""
-                            Seleccione una opción:
-                            1. Gestionar Usuario Externo
-                            2. Manejo de Administradores
-                            3. Salir
-                            """);
-                    option = sc.nextInt();
-                    sc.nextLine();
-
-                    switch (option) {
-
-                        case 1:
-                            manegarUsuarioExterno();
-                            break;
-                        case 2:
-                            menuAdmin();
-                            break;
-
-                        case 3:
-                            System.out.println("Estas saliendo del sistema...");
-                            star = 0;
-                            break;
-                        default:
-                            System.out.println("indique una opcion correcta");
-                    }
-                }while (option!=2);
-
-        }
-    }
-
-
-    public void manegarUsuarioExterno(){
-
-        System.out.println("Gestionar Usuario Externo \n" +
-                "1. Registrar Usuario Externo \n" +
-                "2. Listar Usuarios Externos \n" +
-                "3. Buscar Usuario por ID \n" +
-                "4. Actualizar Usuario Externo \n" +
-                "5. Volver al menú principal");
-        int option = sc.nextInt();
-        sc.nextLine();
-
-        switch (option){
-            case 1:
-                System.out.println("Registrar Usuario Externo");
-                usuarioExternoService.registrarUsuarioExterno(usuarioExterno);
-                break;
-            case 2:
-                System.out.println("Listar Usuarios Externos");
-                usuarioExternoService.listarUsuariosExternos();
-                break;
-
-                case 3:
-                System.out.println("Buscar usuario por ID");
-                System.out.print("Ingrese el ID del usuario: ");
-                int idUsuario = sc.nextInt();   // le pides al usuario el ID
-                sc.nextLine(); // para limpiar buffer
-
-                usuarioExternoService.obtenerUsuarioPorId(idUsuario);
-                break;
-
-            case 4:
-                System.out.println("Actualizar Usuario Externo");
-                usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
-                break;
-            case 5:
-                System.out.println("Volver al menú principal");
-                menuApp();
-                break;
-            default:
-                System.out.println("Opción no válida, intente de nuevo.");
-                break;
-        }
-    }
-
-
-    public void menuAdmin(){
-        int adminOpt=0;
+        int option;
+        System.out.println("=== Bienvenido al sistema de reservas ===");
 
         do {
-
-
-            System.out.println("seleccione una de las siguintes opciones");
             System.out.println("""
-                    1)insercion de nuevo administrador
-                    2)consultar admin por id
-                    3)consultar lista completa de admins
-                    4)actualizar datos del admin
-                    5)eliminar admin
-                    6)salir al menu principal
+                    ----------------------------
+                    Seleccione una opción:
+                    1. Gestión de Usuarios Externos
+                    2. Gestión de Administradores
+                    3. Gestión de Reservas
+                    4. Salir
+                    ----------------------------
+                    """);
+            option = sc.nextInt();
+            sc.nextLine(); // limpiar buffer
+
+            switch (option) {
+                case 1 -> menuUsuarioExterno();
+                case 2 -> menuAdmin();
+                case 3 -> menuReservas();
+                case 4 -> System.out.println("Saliendo del sistema...");
+                default -> System.out.println("❌ Opción no válida, intente de nuevo.");
+            }
+        } while (option != 4);
+    }
+
+    // ====================== MENÚ USUARIO EXTERNO ======================
+    public void menuUsuarioExterno() {
+        int option;
+        do {
+            System.out.println("""
+                    --- Gestión de Usuarios Externos ---
+                    1. Registrar Usuario Externo
+                    2. Listar Usuarios Externos
+                    3. Buscar Usuario por ID
+                    4. Actualizar Usuario Externo
+                    5. Volver al menú principal
+                    """);
+            option = sc.nextInt();
+            sc.nextLine();
+
+            switch (option) {
+                case 1 -> usuarioExternoService.registrarUsuarioExterno(usuarioExterno);
+                case 2 -> usuarioExternoService.listarUsuariosExternos();
+                case 3 -> {
+                    System.out.print("Ingrese el ID del usuario: ");
+                    int idUsuario = sc.nextInt();
+                    sc.nextLine();
+                    usuarioExternoService.obtenerUsuarioPorId(idUsuario);
+                }
+                case 4 -> usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
+                case 5 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("❌ Opción no válida, intente de nuevo.");
+            }
+        } while (option != 5);
+    }
+
+    // ====================== MENÚ ADMIN ======================
+    public void menuAdmin() {
+        int adminOpt;
+        do {
+            System.out.println("""
+                    --- Gestión de Administradores ---
+                    1. Insertar nuevo administrador
+                    2. Consultar administrador por ID
+                    3. Listar administradores
+                    4. Actualizar administrador
+                    5. Eliminar administrador
+                    6. Volver al menú principal
                     """);
             adminOpt = sc.nextInt();
             sc.nextLine();
 
             switch (adminOpt) {
-                case 1:
-                    System.out.println("bienvenido al apartado de insercion de datos del ADMIN: ");
-                    adminService.registrarAdmin(admin);
-                    break;
-                case 2:
-                    System.out.println("consulta de admin por id");
-                    System.out.println("ingrese el id del Admin");
-                    int id= sc.nextInt();
+                case 1 -> adminService.registrarAdmin(admin);
+                case 2 -> {
+                    System.out.print("Ingrese el ID del administrador: ");
+                    int id = sc.nextInt();
                     adminService.buscarAdminPorId(id);
-                    break;
-                case 3:
-                    System.out.println("consulta de administradores completa");
-                    adminService.listarAdmin();
-                    break;
-                case 4:
-                    System.out.println("actualizacion de datos del administrador");
-                    adminService.updateAdmin(admin);
-                    break;
-                case 5:
-                    System.out.println("eliminar adminitrador");
-                    System.out.println("Ingrese el Id a Eliminar");
+                }
+                case 3 -> adminService.listarAdmin();
+                case 4 -> adminService.updateAdmin(admin);
+                case 5 -> {
+                    System.out.print("Ingrese el ID del administrador a eliminar: ");
                     int idDelete = sc.nextInt();
                     adminService.deleteAdminId(idDelete);
-                    break;
-                case 6:
-                    System.out.println("saliendo del menu de gestion de administradores");
-                    break;
-                default:
-                    System.out.println("elija una de las opciones indicadas ");
+                }
+                case 6 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("❌ Opción no válida, intente de nuevo.");
             }
-        }while (adminOpt!=6);
+        } while (adminOpt != 6);
+    }
 
+    // ====================== MENÚ RESERVAS ======================
+    public void menuReservas() {
+        int reservaOpt;
+        do {
+            System.out.println("""
+                    --- Gestión de Reservas ---
+                    1. Crear reserva
+                    2. Actualizar reserva
+                    3. Eliminar reserva
+                    4. Listar reservas
+                    5. Volver al menú principal
+                    """);
+            reservaOpt = sc.nextInt();
+            sc.nextLine();
 
+            switch (reservaOpt) {
+                case 1 -> reservaService.registrarReserva(new Reserva());
+                case 2 -> reservaService.actualizarReserva(new Reserva());
+                case 3 -> System.out.println("🔧 Opción eliminar reserva (pendiente).");
+                case 4 -> reservaService.listarReservas();
+                case 5 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("❌ Opción no válida, intente de nuevo.");
+            }
+        } while (reservaOpt != 5);
+    }
 
+    // ====================== MAIN ======================
+    public static void main(String[] args) {
+        App app = new App();
+        app.menuApp();
     }
 }
