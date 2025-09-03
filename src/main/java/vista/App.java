@@ -65,8 +65,9 @@ public class App {
                     --- Gestión de Usuarios Externos ---
                     1. Registrar Usuario Externo
                     2. Listar Usuarios Externos
-                    3. Actualizar Usuario Externo
-                    4. Volver al menú principal
+                    3. Buscar Usuario por ID
+                    4. Actualizar Usuario Externo
+                    5. Volver al menú principal
                     """);
             option = sc.nextInt();
             sc.nextLine();
@@ -74,11 +75,17 @@ public class App {
             switch (option) {
                 case 1 -> usuarioExternoService.registrarUsuarioExterno(usuarioExterno);
                 case 2 -> usuarioExternoService.listarUsuariosExternos();
-                case 3 -> usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
-                case 4 -> System.out.println("Volviendo al menú principal...");
+                case 3 -> {
+                    System.out.print("Ingrese el ID del usuario: ");
+                    int idUsuario = sc.nextInt();
+                    sc.nextLine();
+                    usuarioExternoService.obtenerUsuarioPorId(idUsuario);
+                }
+                case 4 -> usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);
+                case 5 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("❌ Opción no válida, intente de nuevo.");
             }
-        } while (option != 4);
+        } while (option != 5);
     }
 
     // ====================== MENÚ ADMIN ======================

@@ -136,11 +136,17 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
 
         // ✅ Guardar en BD solo con el cambio realizado
         usuarioExternoRepositorio.actualizarUsuarioExternoBD(usuarioActual);
-    }
 
+
+    }
 
     @Override
     public void listarUsuariosExternos() {
+
+    }
+
+    @Override
+    public void obtenerUsuarioPorId(int idUsuario) {
 
     }
 }

@@ -133,4 +133,8 @@ public class UsuarioExternoRepositorio {
             System.out.println("❌ Error al actualizar el usuario externo en la base de datos: " + e.getMessage());
         }
     }
+
+    public UsuarioExterno buscarPorId(int id) {
+        return null;
+    }
 }
