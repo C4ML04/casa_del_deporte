@@ -8,4 +8,7 @@ public interface ReservaInterface {
     public void actualizarReserva(Reserva reserva);
 
     public void listarReservas ();
+
+    public void elimiarReserva(int id_reserva);
+
 }

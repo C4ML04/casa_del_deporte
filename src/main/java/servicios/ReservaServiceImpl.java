@@ -1,6 +1,7 @@
 package servicios;
 
 import modelo.dominio.Reserva;
+import modelo.dominio.UsuarioExterno;
 import repositorio.ReservaRepositorio;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -87,5 +88,10 @@ public class ReservaServiceImpl implements ReservaInterface {
     @Override
     public void listarReservas() {
 
+    }
+
+    @Override
+    public void elimiarReserva(int id_reserva) {
+        reservaRepositorio.eliminarReserva(id_reserva);
     }
 }
