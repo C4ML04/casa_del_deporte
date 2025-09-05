@@ -142,7 +142,11 @@ public class App {
             switch (reservaOpt) {
                 case 1 -> reservaService.registrarReserva(new Reserva());
                 case 2 -> reservaService.actualizarReserva(new Reserva());
-                case 3 -> System.out.println("🔧 Opción eliminar reserva (pendiente).");
+                case 3 -> {
+                    System.out.print("Ingrese el ID de la reserva a eliminar: ");
+                    int id_reserva = sc.nextInt();
+                    reservaRepositorio.eliminarReserva(id_reserva);
+                }
                 case 4 -> reservaService.listarReservas();
                 case 5 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("❌ Opción no válida, intente de nuevo.");

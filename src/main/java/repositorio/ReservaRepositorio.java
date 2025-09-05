@@ -60,4 +60,21 @@ public class ReservaRepositorio {
             System.out.println("❌ Error al actualizar la reserva: " + e.getMessage());
         }
     }
+
+    public void eliminarReserva(int id_reserva){
+        PreparedStatement ps = null;
+
+        try(Connection connection = conexion.connect()) {
+
+            String query = "DELETE FROM reserva WHERE id_reserva = ?";
+            ps = connection.prepareStatement(query);
+            ps.setInt(1,id_reserva);
+            ps.executeUpdate();
+            System.out.println("Reserva eliminada de la base de datos con id: " + id_reserva);
+
+
+        } catch (Exception e) {
+            System.out.println("Error al conectar: " + e.getMessage());
+        }
+    }
 }
