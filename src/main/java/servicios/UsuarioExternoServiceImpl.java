@@ -78,7 +78,7 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
         sc.nextLine(); // limpiar buffer
 
         // ✅ Obtener usuario actual desde BD para no perder datos
-        UsuarioExterno usuarioActual = usuarioExternoRepositorio.obtenerUsuarioPorId(id);
+        UsuarioExterno usuarioActual = usuarioExternoRepositorio.obtenerUserPorId(id);
         if (usuarioActual == null) {
             System.out.println("❌ No se encontró el usuario con ID " + id);
             return;
@@ -147,7 +147,7 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
 
     @Override
     public void obtenerUsuarioPorId(int idUsuario) {
-
+    usuarioExternoRepositorio usuario = usuarioExternoRepositorio.
 
     }
 }
