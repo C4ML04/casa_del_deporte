@@ -69,12 +69,15 @@ public class UsuarioExternoRepositorio {
         }
     }
 
-    public UsuarioExterno obtenerUsuarioPorId(int idUsuario) {
+  //Obtener usuario por id
+
+        public UsuarioExterno obtenerUsuarioporId(int idUsuario){
         UsuarioExterno usuario = null;
         String query = "SELECT * FROM usuario_externo WHERE id_usuario = ?";
 
         try (Connection connection = conexion.connect();
-             PreparedStatement ps = connection.prepareStatement(query)) {
+        PreparedStatement ps = connection.prepareStatement(query)) {
+
 
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
@@ -97,8 +100,10 @@ public class UsuarioExternoRepositorio {
             System.out.println("❌ Error al obtener usuario externo: " + e.getMessage());
         }
 
-        return usuario;
-    }
+            return usuario;
+        }
+        }
+
 
     // 🔹 Actualizar usuario
     public void actualizarUsuarioExternoBD(UsuarioExterno usuarioExterno) {
@@ -137,4 +142,4 @@ public class UsuarioExternoRepositorio {
     public UsuarioExterno buscarPorId(int id) {
         return null;
     }
-}
+

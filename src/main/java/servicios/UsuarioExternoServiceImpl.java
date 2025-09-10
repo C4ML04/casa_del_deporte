@@ -148,5 +148,6 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
     @Override
     public void obtenerUsuarioPorId(int idUsuario) {
 
+
     }
 }
