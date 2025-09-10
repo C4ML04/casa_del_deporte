@@ -12,6 +12,7 @@ import servicios.UsuarioExternoServiceImpl;
 
 import java.util.Scanner;
 
+
 public class App {
 
     private Scanner sc = new Scanner(System.in);
@@ -28,6 +29,8 @@ public class App {
     private Reserva reserva = new Reserva();
     private ReservaRepositorio reservaRepositorio = new ReservaRepositorio();
     private ReservaServiceImpl reservaService = new ReservaServiceImpl(reservaRepositorio);
+
+
 
     // ====================== MENÚ PRINCIPAL ======================
     public void menuApp() {
@@ -78,7 +81,7 @@ public class App {
                 case 3 -> {
                     System.out.print("Ingrese el ID del usuario: ");
                     int idUsuario = sc.nextInt();
-                    sc.nextLine();
+                    sc.nextLine(); // Limpiar el buffer
                     usuarioExternoService.obtenerUsuarioPorId(idUsuario);
                 }
                 case 4 -> usuarioExternoService.actualizarUsuarioExterno(usuarioExterno);

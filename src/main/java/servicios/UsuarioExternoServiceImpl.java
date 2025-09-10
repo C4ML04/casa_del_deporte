@@ -78,7 +78,7 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
         sc.nextLine(); // limpiar buffer
 
         // ✅ Obtener usuario actual desde BD para no perder datos
-        UsuarioExterno usuarioActual = usuarioExternoRepositorio.obtenerUserPorId(id);
+        UsuarioExterno usuarioActual = usuarioExternoRepositorio.buscarUsuarioPorId(id);
         if (usuarioActual == null) {
             System.out.println("❌ No se encontró el usuario con ID " + id);
             return;
@@ -145,9 +145,20 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoInterface{
 
     }
 
+
     @Override
     public void obtenerUsuarioPorId(int idUsuario) {
-    usuarioExternoRepositorio usuario = usuarioExternoRepositorio.
+        // La lógica de búsqueda está en el repositorio, solo debes llamarla
+        UsuarioExterno usuario = usuarioExternoRepositorio.buscarUsuarioPorId(idUsuario);
 
+        if (usuario != null) {
+            System.out.println("✅ Usuario encontrado:");
+            System.out.println("ID: " + usuario.getId());
+            System.out.println("Nombre: " + usuario.getNombre());
+            System.out.println("Apellido: " + usuario.getApellido());
+            // ... (Puedes agregar más campos)
+        } else {
+            System.out.println("❌ No se encontró un usuario con el ID " + idUsuario);
+        }
     }
 }

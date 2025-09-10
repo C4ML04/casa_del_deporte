@@ -70,7 +70,7 @@ public class UsuarioExternoRepositorio {
     }
 
     //Metodo para obtener usuario por ID
-    public UsuarioExterno obtenerUsuarioporId(int idUsuario) {
+    public UsuarioExterno buscarUsuarioPorId(int idUsuario) {
         UsuarioExterno usuario = null;
         String query = "SELECT * FROM usuario_externo WHERE id_usuario = ?";
 
