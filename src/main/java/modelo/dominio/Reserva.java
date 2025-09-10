@@ -2,7 +2,6 @@ package modelo.dominio;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 public class Reserva {
 
@@ -14,6 +13,8 @@ public class Reserva {
     private boolean entrenamientoAsistido;
     private UsuarioExterno usuarioExterno;
     private Admin admin;
+    private int idUsuario;
+    private int idAdmin;
 
     //cosntructor
 
@@ -26,6 +27,8 @@ public class Reserva {
         this.entrenamientoAsistido = entrenamientoAsistido;
         this.usuarioExterno = usuarioExterno;
         this.admin = admin;
+        this.idUsuario = idUsuario;
+        this.idAdmin =  idAdmin;
     }
 
     public Reserva(){
@@ -60,6 +63,22 @@ public class Reserva {
 
     public boolean isEntrenamientoAsistido() {
         return entrenamientoAsistido;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(int idAdmin) {
+        this.idAdmin = idAdmin;
     }
 
     public void setEntrenamientoAsistido(boolean entrenamientoAsistido) {

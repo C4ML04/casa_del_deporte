@@ -3,6 +3,10 @@ package repositorio;
 import modelo.dominio.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservaRepositorio {
 
@@ -61,7 +65,68 @@ public class ReservaRepositorio {
         }
     }
 
-    public void eliminarReserva(int id_reserva){
+
+    // Buscar reserva porID
+    public Reserva buscarPorId(int idReserva) {
+        Reserva reserva = null;
+        String sql = "SELECT * FROM reserva WHERE id_reserva = ?";
+
+        try (Connection connection = conexion.connect();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idReserva);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                reserva = new Reserva();
+                reserva.setIdReserva(rs.getInt("id_reserva"));
+                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
+                reserva.setHoraReserva(rs.getTimestamp("hora_reserva").toLocalDateTime());
+                reserva.setEntrenamientoAsistido(rs.getBoolean("entrenamiento_asistido"));
+                reserva.setIdUsuario(rs.getInt("id_usuario"));
+                reserva.setIdAdmin(rs.getInt("id_admin"));   //Se añadio nuevo setter debido a que
+                //El problema principal es una incompatibilidad conceptual entre tu clase Reserva y la tabla en la base de datos.
+                //
+                //La tabla de base de datos reserva almacena IDs numéricos (id_usuario, id_admin).
+                //
+                //Tu clase Reserva está diseñada para almacenar objetos completos (UsuarioExterno, Admin). Por esto se añadio
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar reserva por ID: " + e.getMessage());
+        }
+        return reserva;
+    }
+    }
+
+    // Listar las reservas
+    public List<Reserva> listarReservas() {
+        List<Reserva> reservas = new ArrayList<>();
+        String sql = "SELECT * FROM reserva";
+
+        try (Connection connection = conexion.connect();
+             Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Reserva reserva = new Reserva();
+                reserva.setIdReserva(rs.getInt("id_reserva"));
+                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
+                reserva.setHoraReserva(rs.getTimestamp("hora_reserva").toLocalDateTime());
+                reserva.setEntrenamientoAsistido(rs.getBoolean("entrenamiento_asistido"));
+
+                // ✅ CORREGIDO: Usa los setters que esperan IDs
+                reserva.setIdUsuario(rs.getInt("id_usuario"));
+                reserva.setIdAdmin(rs.getInt("id_admin"));
+
+                reservas.add(reserva);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar reservas: " + e.getMessage());
+        }
+        return reservas;
+
+
+    } public void eliminarReserva(int id_reserva){
         PreparedStatement ps = null;
 
         try(Connection connection = conexion.connect()) {
@@ -77,4 +142,8 @@ public class ReservaRepositorio {
             System.out.println("Error al conectar: " + e.getMessage());
         }
     }
+
+public void main() {
 }
+
+
