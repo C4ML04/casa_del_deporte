@@ -11,24 +11,19 @@ public class Reserva {
     private LocalDate fechaReserva;
     private LocalDateTime horaReserva;
     private boolean entrenamientoAsistido;
-    private UsuarioExterno usuarioExterno;
-    private Admin admin;
     private int idUsuario;
     private int idAdmin;
 
     //cosntructor
 
 
-    public Reserva(int idReserva, LocalDate fechaReserva, LocalDateTime horaReserva, boolean entrenamientoAsistido,
-                   UsuarioExterno usuarioExterno, Admin admin) {
+    public Reserva(int idReserva, LocalDate fechaReserva, LocalDateTime horaReserva, boolean entrenamientoAsistido, int idUsuario, int idAdmin) {
         this.idReserva = idReserva;
         this.fechaReserva = fechaReserva;
         this.horaReserva = horaReserva;
         this.entrenamientoAsistido = entrenamientoAsistido;
-        this.usuarioExterno = usuarioExterno;
-        this.admin = admin;
         this.idUsuario = idUsuario;
-        this.idAdmin =  idAdmin;
+        this.idAdmin = idAdmin;
     }
 
     public Reserva(){
@@ -85,19 +80,19 @@ public class Reserva {
         this.entrenamientoAsistido = entrenamientoAsistido;
     }
 
-    public UsuarioExterno getUsuarioExterno() {
-        return usuarioExterno;
-    }
-
-    public void setUsuarioExterno(UsuarioExterno usuarioExterno) {
-        this.usuarioExterno = usuarioExterno;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
+//    public UsuarioExterno getUsuarioExterno() {
+//        return usuarioExterno;
+//    }
+//
+//    public void setUsuarioExterno(UsuarioExterno usuarioExterno) {
+//        this.usuarioExterno = usuarioExterno;
+//    }
+//
+//    public Admin getAdmin() {
+//        return admin;
+//    }
+//
+//    public void setAdmin(Admin admin) {
+//        this.admin = admin;
+//    }
 }

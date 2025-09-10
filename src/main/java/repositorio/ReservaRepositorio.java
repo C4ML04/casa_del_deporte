@@ -1,16 +1,18 @@
 package repositorio;
 
+
 import modelo.dominio.Reserva;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ReservaRepositorio {
 
     Conexion conexion = new Conexion();
+
 
     // 🔹 Crear una reserva
     public void crearReserva(Reserva reserva, int idUsuario, int idAdmin) {
@@ -37,7 +39,6 @@ public class ReservaRepositorio {
             System.out.println("❌ Error al crear la reserva: " + e.getMessage());
         }
     }
-
     // 🔹 Actualizar una reserva existente
     public void actualizarReserva(Reserva reserva, int idUsuario, int idAdmin) {
         String query = "INSERT INTO reserva (fecha_reserva, hora_reserva, entrenamiento_asistido, id_usuario, id_admin) VALUES (?, ?, ?, ?, ?)";
@@ -64,69 +65,90 @@ public class ReservaRepositorio {
             System.out.println("❌ Error al actualizar la reserva: " + e.getMessage());
         }
     }
-
-
     // Buscar reserva porID
-    public Reserva buscarPorId(int idReserva) {
-        Reserva reserva = null;
-        String sql = "SELECT * FROM reserva WHERE id_reserva = ?";
+    public void buscarReservaPorId(int id_reserva){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        try (Connection connection = conexion.connect();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try(Connection connection= conexion.connect()){
 
-            ps.setInt(1, idReserva);
-            ResultSet rs = ps.executeQuery();
+            String query = "SELECT * FROM reserva WHERE id_reserva = ?";
 
-            if (rs.next()) {
-                reserva = new Reserva();
-                reserva.setIdReserva(rs.getInt("id_reserva"));
-                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
-                reserva.setHoraReserva(rs.getTimestamp("hora_reserva").toLocalDateTime());
-                reserva.setEntrenamientoAsistido(rs.getBoolean("entrenamiento_asistido"));
-                reserva.setIdUsuario(rs.getInt("id_usuario"));
-                reserva.setIdAdmin(rs.getInt("id_admin"));   //Se añadio nuevo setter debido a que
-                //El problema principal es una incompatibilidad conceptual entre tu clase Reserva y la tabla en la base de datos.
-                //
-                //La tabla de base de datos reserva almacena IDs numéricos (id_usuario, id_admin).
-                //
-                //Tu clase Reserva está diseñada para almacenar objetos completos (UsuarioExterno, Admin). Por esto se añadio
+            ps = connection.prepareStatement(query);
+
+            ps.setInt(1,id_reserva);
+
+            rs=ps.executeQuery();
+
+            while (rs.next()){
+
+                Integer idReserva = rs.getInt("id_reserva");
+                LocalDate fechaReserva = rs.getDate("fecha_reserva").toLocalDate();
+                LocalDateTime horaReserva = rs.getTimestamp("hora_reserva").toLocalDateTime();
+                Boolean entrenamientoAsistido = rs.getBoolean("entrenamiento_asistido");
+                int idUsuario = rs.getInt("id_usuario");
+                int idAdmin = rs.getInt("id_admin");
+
+                if (idReserva != null){
+
+                    System.out.println("ID reserva: "+idReserva+"\n"+
+                            "Fecha de la reserva: "+fechaReserva+"\n"+
+                            "Hora de la reserva: "+horaReserva+"\n"+
+                            "Entrenamiento asistido: "+entrenamientoAsistido+"\n"+
+                            "Id usuario: "+idUsuario+"\n"+
+                            "Id admin: "+idAdmin+"\n");
+
+                }else {
+                    System.out.println("ESTE ID NO EXISTE EN LA BASE DE DATOS");
+                }
+
+
             }
-        } catch (Exception e) {
-            System.out.println("Error al buscar reserva por ID: " + e.getMessage());
+
+        }catch (Exception e){
+            System.out.println("Error al conectar "+e.getMessage());
         }
-        return reserva;
-    }
+
+
     }
 
     // Listar las reservas
-    public List<Reserva> listarReservas() {
-        List<Reserva> reservas = new ArrayList<>();
-        String sql = "SELECT * FROM reserva";
+    public void listarReservas(){
 
-        try (Connection connection = conexion.connect();
-             Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try (Connection connection = conexion.connect()) {
+
+            String query = "SELECT * FROM reserva";
+
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
 
             while (rs.next()) {
-                Reserva reserva = new Reserva();
-                reserva.setIdReserva(rs.getInt("id_reserva"));
-                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
-                reserva.setHoraReserva(rs.getTimestamp("hora_reserva").toLocalDateTime());
-                reserva.setEntrenamientoAsistido(rs.getBoolean("entrenamiento_asistido"));
 
-                // ✅ CORREGIDO: Usa los setters que esperan IDs
-                reserva.setIdUsuario(rs.getInt("id_usuario"));
-                reserva.setIdAdmin(rs.getInt("id_admin"));
+                Integer idReserva = rs.getInt("id_reserva");
+                LocalDate fechaReserva = rs.getDate("fecha_reserva").toLocalDate();
+                LocalDateTime horaReserva = rs.getTimestamp("hora_reserva").toLocalDateTime();
+                Boolean entrenamientoAsistido = rs.getBoolean("entrenamiento_asistido");
+                int idUsuario = rs.getInt("id_usuario");
+                int idAdmin = rs.getInt("id_admin");
 
-                reservas.add(reserva);
+
+                System.out.println("ID reserva: " + idReserva + "\n" +
+                        "Fecha de la reserva: " + fechaReserva + "\n" +
+                        "Hora de la reserva: " + horaReserva + "\n" +
+                        "Entrenamiento asistido: " + entrenamientoAsistido + "\n" +
+                        "Id usuario: " + idUsuario + "\n" +
+                        "Id admin: " + idAdmin + "\n");
+
+
             }
-        } catch (Exception e) {
-            System.out.println("Error al listar reservas: " + e.getMessage());
+        } catch (Exception e){
+            System.out.println("error al conectar "+ e.getMessage());
         }
-        return reservas;
-
-
-    } public void eliminarReserva(int id_reserva){
+    }
+    public void eliminarReserva(int id_reserva){
         PreparedStatement ps = null;
 
         try(Connection connection = conexion.connect()) {
@@ -142,8 +164,7 @@ public class ReservaRepositorio {
             System.out.println("Error al conectar: " + e.getMessage());
         }
     }
-
-public void main() {
 }
+
 
 

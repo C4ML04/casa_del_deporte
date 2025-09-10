@@ -61,7 +61,7 @@ public class UsuarioExternoRepositorio {
             ps.setBoolean(7, usuarioExterno.isHaciendoMusculacion());
 
             ps.executeUpdate();
-            System.out.println("Usuario Externo registrado en la base de datos" + usuarioExterno.getNombre() + " " + usuarioExterno.getApellido());
+            System.out.println("Usuario Externo registrado en la base de datos: " + usuarioExterno.getNombre() + " " + usuarioExterno.getApellido());
 
         } catch (Exception e) {
             System.out.println("Error al registrar el usuario externo en la base de datos: " + e.getMessage());

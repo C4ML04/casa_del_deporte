@@ -136,8 +136,9 @@ public class App {
                     1. Crear reserva
                     2. Actualizar reserva
                     3. Eliminar reserva
-                    4. Listar reservas
-                    5. Volver al menú principal
+                    4. Buscar reserva por ID
+                    5. Listar reservas
+                    6. Volver al menú principal
                     """);
             reservaOpt = sc.nextInt();
             sc.nextLine();
@@ -150,8 +151,13 @@ public class App {
                     int id_reserva = sc.nextInt();
                     reservaRepositorio.eliminarReserva(id_reserva);
                 }
-                case 4 -> reservaService.listarReservas();
-                case 5 -> System.out.println("Volviendo al menú principal...");
+                case 4 -> {
+                    System.out.print("Buscar el ID de la reserva: ");
+                    int id_reserva = sc.nextInt();
+                    reservaRepositorio.buscarReservaPorId(id_reserva);
+                }
+                case 5 -> reservaRepositorio.listarReservas();
+                case 6 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("❌ Opción no válida, intente de nuevo.");
             }
         } while (reservaOpt != 5);
