@@ -88,6 +88,9 @@ public class AdminServiceImpl  implements  AdminInterface{
                 int id = sc.nextInt();
                 admin.setId(id);
                 admin.setNombre(nombre);
+                admin.setApellido(null);
+                admin.setActividadDirecta(null);
+                admin.setTelefono(null);
                 adminRepositorio.updateAdmin(admin);
                 break;
             case 2:
@@ -97,6 +100,9 @@ public class AdminServiceImpl  implements  AdminInterface{
                 id = sc.nextInt();
                 admin.setId(id);
                 admin.setApellido(apellido);
+                admin.setNombre(null);
+                admin.setActividadDirecta(null);
+                admin.setTelefono(null);
                 adminRepositorio.updateAdmin(admin);
                 break;
             case 3:
@@ -107,6 +113,11 @@ public class AdminServiceImpl  implements  AdminInterface{
                 id = sc.nextInt();
                 admin.setId(id);
                 admin.setTelefono(telefono);
+                admin.setNombre(null);
+                admin.setActividadDirecta(null);
+                admin.setApellido(null);
+
+
                 adminRepositorio.updateAdmin(admin);
                 break;
             case 4:
@@ -117,6 +128,9 @@ public class AdminServiceImpl  implements  AdminInterface{
                 id = sc.nextInt();
                 admin.setId(id);
                 admin.setActividadDirecta(actividadDirecta);
+                admin.setNombre(null);
+                admin.setTelefono(null);
+                admin.setApellido(null);
                 adminRepositorio.updateAdmin(admin);
                 break;
             default:
