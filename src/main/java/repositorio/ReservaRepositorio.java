@@ -74,8 +74,7 @@ public class ReservaRepositorio {
     }
     // 🔹 Actualizar una reserva existente
     public void actualizarReserva(Reserva reserva, int idUsuario, int idAdmin) {
-        String query = "INSERT INTO reserva (fecha_reserva, hora_reserva, entrenamiento_asistido, id_usuario, id_admin) VALUES (?, ?, ?, ?, ?)";
-
+        String query = "UPDATE reserva SET fecha_reserva = ?, hora_reserva = ?, entrenamiento_asistido = ?, id_usuario = ?, id_admin = ? WHERE id_reserva = ?";
 
         try (Connection connection = conexion.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -85,17 +84,17 @@ public class ReservaRepositorio {
             ps.setBoolean(3, reserva.isEntrenamientoAsistido());
             ps.setInt(4, idUsuario);
             ps.setInt(5, idAdmin);
-
+            ps.setInt(6, reserva.getIdReserva()); // condición WHERE
 
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Reserva actualizada correctamente.");
             } else {
-                System.out.println("No se encontró la reserva con id " + reserva.getIdReserva());
+                System.out.println(" No se encontró la reserva con id " + reserva.getIdReserva());
             }
 
         } catch (Exception e) {
-            System.out.println("Error al actualizar la reserva: " + e.getMessage());
+            System.out.println(" Error al actualizar la reserva: " + e.getMessage());
         }
     }
     // Buscar reserva porID
